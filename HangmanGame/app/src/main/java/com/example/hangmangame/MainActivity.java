@@ -146,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 theword.setText(randomKeySelected);
                 // turning word into array of chars
                 randomWordArray = randomKeySelected.toCharArray();
+                System.out.println(randomWordArray);
                 // building the underscores
                 for (int iter = 0; iter < randomWordArray.length; iter++) {
                     wordSelectedUnderscores += "_";
@@ -356,7 +357,7 @@ public class MainActivity extends AppCompatActivity {
 
             // whole word completed
             boolean contains = false;
-            for (char c : randomWordArray) {
+            for (char c : wordSelectedUnderscoresArr) {
                 if (c == '_') {
                     contains = true;
                     break;
