@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
@@ -21,60 +22,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.976" />
 
-    <EditText
-        android:id="@+id/userInput"
-        android:layout_width="181dp"
-        android:layout_height="77dp"
-        android:ems="10"
-        android:hint='"a", "b", etc.'
-        android:inputType="textPersonName"
-        android:textSize="34sp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.73" />
-
-    <Button
-        android:id="@+id/btnSubmit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.848"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.72" />
-
     <ImageView
-        android:id="@+id/hangmanHead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/hangmanRightArm"
+        android:layout_width="66dp"
+        android:layout_height="67dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.237"
+        app:layout_constraintHorizontal_bias="0.382"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.121"
-        app:srcCompat="@drawable/hangmanhead" />
-
-    <ImageView
-        android:id="@+id/hangmanTorso"
-        android:layout_width="107dp"
-        android:layout_height="166dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.167"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.136"
-        app:srcCompat="@drawable/hangmantorso" />
+        app:layout_constraintVertical_bias="0.15"
+        app:srcCompat="@drawable/hangmanrightarm" />
 
     <ImageView
         android:id="@+id/hangmanLeftArm"
@@ -83,24 +42,37 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.144"
+        app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.129"
+        app:layout_constraintVertical_bias="0.15"
         app:srcCompat="@drawable/hangmanleftarm" />
 
     <ImageView
-        android:id="@+id/hangmanRightArm"
-        android:layout_width="66dp"
-        android:layout_height="67dp"
+        android:id="@+id/hangmanTorso"
+        android:layout_width="107dp"
+        android:layout_height="166dp"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.266"
+        app:layout_constraintHorizontal_bias="0.299"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.129"
-        app:srcCompat="@drawable/hangmanrightarm" />
+        app:layout_constraintVertical_bias="0.161"
+        app:srcCompat="@drawable/hangmantorso" />
+
+    <ImageView
+        android:id="@+id/hangmanHead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.341"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.141"
+        app:srcCompat="@drawable/hangmanhead" />
 
     <ImageView
         android:id="@+id/hangmanLeftLeg"
@@ -109,10 +81,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintHorizontal_bias="0.271"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.305"
+        app:layout_constraintVertical_bias="0.368"
         app:srcCompat="@drawable/hangmanleftleg" />
 
     <ImageView
@@ -122,23 +94,294 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.261"
+        app:layout_constraintHorizontal_bias="0.375"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.305"
+        app:layout_constraintVertical_bias="0.366"
         app:srcCompat="@drawable/hangmanrightleg" />
 
     <ImageView
         android:id="@+id/hangmanFrame"
-        android:layout_width="324dp"
-        android:layout_height="383dp"
+        android:layout_width="245dp"
+        android:layout_height="250dp"
+        android:layout_marginBottom="95dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/keyboard"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.696"
+        app:layout_constraintHorizontal_bias="0.652"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.049"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/hangmanframe" />
+
+    <TableLayout
+        android:id="@+id/keyboard"
+        android:layout_width="411dp"
+        android:layout_height="166dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/btnStartGame"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TableRow
+            android:id="@+id/qwertyuiop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnQ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="q"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnW"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="w"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnE"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="e"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="r"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="t"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnY"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="y"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnU"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="u"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnI"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="i"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="o"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="p"
+                android:textAllCaps="false" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/asdfghjkl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnA"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="a"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="s"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="d"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnF"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="f"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnG"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="g"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnH"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="h"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnJ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="j"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="k"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="l"
+                android:textAllCaps="false" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/zxcvbnm"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnZ"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="z"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnX"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="x"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnC"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="c"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="v"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="b"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="n"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/btnM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="32dip"
+                android:text="m"
+                android:textAllCaps="false" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/wordSelected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:letterSpacing="0.3"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/keyboard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hangmanFrame"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/theword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="328dp"
+        tools:layout_editor_absoluteY="457dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
