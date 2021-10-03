@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView hangmanRightArm;
     private ImageView hangmanLeftLeg;
     private ImageView hangmanRightLeg;
-    final ImageView[] hangmanBody = {hangmanLeftLeg, hangmanRightLeg, hangmanLeftArm, hangmanRightArm, hangmanTorso, hangmanHead};
+    private ImageView[] hangmanBody;
     int countWrong = 0;
     char[] randomWordArray = {};
     String wordSelectedUnderscores = "";
@@ -134,8 +134,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 hangmanFrame.setVisibility(View.VISIBLE);
+
+                // for restarting
                 countWrong = 0;
                 wordSelectedUnderscores = "";
+                wordSelectedUnderscoresArr.clear();
+                hangmanBody = new ImageView[]{hangmanLeftLeg, hangmanRightLeg, hangmanLeftArm, hangmanRightArm, hangmanTorso, hangmanHead};
+                for (int iter = 0; iter < hangmanBody.length; iter++) {
+                    hangmanBody[iter].setVisibility(View.INVISIBLE);
+                }
 
                 // randomly selects category
                 int randomArrChooser = new Random().nextInt(allWords.length);
