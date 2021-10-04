@@ -327,11 +327,16 @@ public class MainActivity extends AppCompatActivity {
 
     /* takes button onclick to update game counters and UI */
     private void letterChecker(char fromButton) {
-        // binary search to check if input letter is in the word
-        int check = Arrays.binarySearch(randomWordArray, fromButton);
+        // linear search to check if input letter is in the word
+        boolean check = false;
+        for (char c : randomWordArray) {
+            if (c == fromButton) {
+                check = true;
+            }
+        }
         List<Integer> indexList = new ArrayList<Integer>();
 
-        if (check < 0) {
+        if (!check) {
             // negative value means not in the word -> wrong -> set next body part visible
             hangmanBody[countWrong].setVisibility(View.VISIBLE);
             countWrong++;
