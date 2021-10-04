@@ -6,44 +6,75 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+    <EditText
+        android:id="@+id/euro"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="99dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="55dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Euro"
+        android:textSize="20dp"
+        android:inputType="numberDecimal"
+        app:layout_constraintBottom_toTopOf="@+id/USA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="164dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Euro" />
+    <TextView
+        android:id="@+id/USA"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:text="USD"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/KOR"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/euro" />
 
-        <TextView
-            android:id="@+id/USA"
-            android:layout_width="match_parent"
-            android:layout_height="138dp"
-            android:text="USD" />
+    <TextView
+        android:id="@+id/KOR"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="47dp"
+        android:gravity="center"
+        android:text="Won"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/JAP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/USA" />
 
-        <TextView
-            android:id="@+id/KOR"
-            android:layout_width="match_parent"
-            android:layout_height="127dp"
-            android:text="Won" />
+    <TextView
+        android:id="@+id/JAP"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center"
+        android:text="Yen"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/AUD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/KOR" />
 
-        <TextView
-            android:id="@+id/JAP"
-            android:layout_width="match_parent"
-            android:layout_height="132dp"
-            android:text="Yen" />
+    <TextView
+        android:id="@+id/AUD"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="82dp"
+        android:gravity="center"
+        android:text="AUD"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/JAP" />
 
-        <TextView
-            android:id="@+id/PRC"
-            android:layout_width="match_parent"
-            android:layout_height="144dp"
-            android:text="RMB" />
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
 
