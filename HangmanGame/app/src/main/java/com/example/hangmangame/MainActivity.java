@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnB;
     private Button btnN;
     private Button btnM;
-    final Button[] keyboardButtons = {btnQ, btnW, btnE, btnR, btnT, btnY, btnU, btnI, btnO, btnP, btnA, btnS, btnD, btnF, btnG, btnH, btnJ, btnK, btnL, btnZ, btnX, btnC, btnV, btnB, btnN, btnM};
+    private Button[] keyboardButtons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +143,10 @@ public class MainActivity extends AppCompatActivity {
                 for (int iter = 0; iter < hangmanBody.length; iter++) {
                     hangmanBody[iter].setVisibility(View.INVISIBLE);
                 }
+                keyboardButtons = new Button[]{btnQ, btnW, btnE, btnR, btnT, btnY, btnU, btnI, btnO, btnP, btnA, btnS, btnD, btnF, btnG, btnH, btnJ, btnK, btnL, btnZ, btnX, btnC, btnV, btnB, btnN, btnM};
+                for (int iter = 0; iter < keyboardButtons.length; iter++) {
+                    keyboardButtons[iter].setVisibility(View.VISIBLE);
+                }
 
                 // randomly selects category
                 int randomArrChooser = new Random().nextInt(allWords.length);
@@ -171,156 +175,182 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 letterChecker('q');
+                btnQ.setVisibility(View.INVISIBLE);
             }
         });
         btnW.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('w');
+                btnW.setVisibility(View.INVISIBLE);
             }
         });
         btnE.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('e');
+                btnE.setVisibility(View.INVISIBLE);
             }
         });
         btnR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('r');
+                btnR.setVisibility(View.INVISIBLE);
             }
         });
         btnT.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('t');
+                btnT.setVisibility(View.INVISIBLE);
             }
         });
         btnY.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('y');
+                btnY.setVisibility(View.INVISIBLE);
             }
         });
         btnU.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('u');
+                btnU.setVisibility(View.INVISIBLE);
             }
         });
         btnI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('i');
+                btnI.setVisibility(View.INVISIBLE);
             }
         });
         btnO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('o');
+                btnO.setVisibility(View.INVISIBLE);
             }
         });
         btnP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('p');
+                btnP.setVisibility(View.INVISIBLE);
             }
         });
         btnA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('a');
+                btnA.setVisibility(View.INVISIBLE);
             }
         });
         btnS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('s');
+                btnS.setVisibility(View.INVISIBLE);
             }
         });
         btnD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('d');
+                btnD.setVisibility(View.INVISIBLE);
             }
         });
         btnF.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('f');
+                btnF.setVisibility(View.INVISIBLE);
             }
         });
         btnG.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('g');
+                btnG.setVisibility(View.INVISIBLE);
             }
         });
         btnH.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('h');
+                btnH.setVisibility(View.INVISIBLE);
             }
         });
         btnJ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('j');
+                btnJ.setVisibility(View.INVISIBLE);
             }
         });
         btnK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('k');
+                btnK.setVisibility(View.INVISIBLE);
             }
         });
         btnL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('l');
+                btnL.setVisibility(View.INVISIBLE);
             }
         });
         btnZ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('z');
+                btnZ.setVisibility(View.INVISIBLE);
             }
         });
         btnX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('x');
+                btnX.setVisibility(View.INVISIBLE);
             }
         });
         btnC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('c');
+                btnC.setVisibility(View.INVISIBLE);
             }
         });
         btnV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('v');
+                btnV.setVisibility(View.INVISIBLE);
             }
         });
         btnB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('b');
+                btnB.setVisibility(View.INVISIBLE);
             }
         });
         btnN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('n');
+                btnN.setVisibility(View.INVISIBLE);
             }
         });
         btnM.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 letterChecker('m');
+                btnM.setVisibility(View.INVISIBLE);
             }
         });
     }
