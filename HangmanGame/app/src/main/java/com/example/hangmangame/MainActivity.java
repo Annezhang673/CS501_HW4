@@ -1,8 +1,10 @@
 package com.example.hangmangame;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     /* array of arrays */
     static final String[][] allWords = {animals, food, music};
 
+    boolean game = false;
+
     private ImageView hangmanFrame;
     private ImageView hangmanHead;
     private ImageView hangmanTorso;
@@ -38,13 +43,12 @@ public class MainActivity extends AppCompatActivity {
     private ImageView hangmanLeftLeg;
     private ImageView hangmanRightLeg;
     private ImageView[] hangmanBody;
-    int countWrong = 0;
-    char[] randomWordArray = {};
-    String wordSelectedUnderscores = "";
-    List<Character> wordSelectedUnderscoresArr = new ArrayList<Character>();
-    private TextView theword;
+    int countWrong = 0; // number wrong
+    char[] randomWordArray = {}; // word selected put into char array
+    String wordSelectedUnderscores = ""; // displayed string of underscores
+    ArrayList<Character> wordSelectedUnderscoresArr = new ArrayList<Character>(); // displayed string of underscores arraylist
 
-    private TextView wordSelected;
+    private TextView wordSelected; // word selected textview
     private Button btnStartGame;
 
     private TableLayout keyboard;
@@ -77,7 +81,85 @@ public class MainActivity extends AppCompatActivity {
     private Button btnB;
     private Button btnN;
     private Button btnM;
+    int btnQNum = 0;
+    int btnWNum = 1;
+    int btnENum = 2;
+    int btnRNum = 3;
+    int btnTNum = 4;
+    int btnYNum = 5;
+    int btnUNum = 6;
+    int btnINum = 7;
+    int btnONum = 8;
+    int btnPNum = 9;
+    int btnANum = 10;
+    int btnSNum = 11;
+    int btnDNum = 12;
+    int btnFNum = 13;
+    int btnGNum = 14;
+    int btnHNum = 15;
+    int btnJNum = 16;
+    int btnKNum = 17;
+    int btnLNum = 18;
+    int btnZNum = 19;
+    int btnXNum = 20;
+    int btnCNum = 21;
+    int btnVNum = 22;
+    int btnBNum = 23;
+    int btnNNum = 24;
+    int btnMNum = 25;
     private Button[] keyboardButtons;
+    int[] keyboardButtonsUsed = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; // list of btn visibility (0 = visible, 4 = invisible)
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("countWrong", countWrong);
+        outState.putCharArray("randomWordArray", randomWordArray);
+        outState.putString("wordSelected", wordSelected.getText().toString());
+        outState.putIntArray("keyboardButtonsUsed", keyboardButtonsUsed);
+        outState.putBoolean("game", game);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        int savedCountWrong = savedInstanceState.getInt("countWrong");
+        countWrong = savedCountWrong;
+        hangmanHead = (ImageView) findViewById(R.id.hangmanHead);
+        hangmanTorso = (ImageView) findViewById(R.id.hangmanTorso);
+        hangmanLeftArm = (ImageView) findViewById(R.id.hangmanLeftArm);
+        hangmanRightArm = (ImageView) findViewById(R.id.hangmanRightArm);
+        hangmanLeftLeg = (ImageView) findViewById(R.id.hangmanLeftLeg);
+        hangmanRightLeg = (ImageView) findViewById(R.id.hangmanRightLeg);
+        hangmanBody = new ImageView[]{hangmanLeftLeg, hangmanRightLeg, hangmanLeftArm, hangmanRightArm, hangmanTorso, hangmanHead};
+        for (int iter = 0; iter < countWrong; iter++) {
+            hangmanBody[iter].setVisibility(View.VISIBLE);
+        }
+
+        char[] savedRandomWordArray = savedInstanceState.getCharArray("randomWordArray");
+        randomWordArray = savedRandomWordArray;
+
+        String savedWordSelected = savedInstanceState.getString("wordSelected");
+        wordSelected.setText(savedWordSelected);
+        for (char c : savedWordSelected.toCharArray()) {
+            wordSelectedUnderscoresArr.add(c);
+        }
+
+        int[] savedKeyboardButtonsUsed = savedInstanceState.getIntArray("keyboardButtonsUsed");
+        keyboardButtons = new Button[]{btnQ, btnW, btnE, btnR, btnT, btnY, btnU, btnI, btnO, btnP, btnA, btnS, btnD, btnF, btnG, btnH, btnJ, btnK, btnL, btnZ, btnX, btnC, btnV, btnB, btnN, btnM};
+        for (int iter = 0; iter < savedKeyboardButtonsUsed.length; iter++) {
+            keyboardButtons[iter].setVisibility(savedKeyboardButtonsUsed[iter]);
+        }
+
+        boolean savedGame = savedInstanceState.getBoolean("game");
+        game = savedGame;
+
+        if (game) {
+            hangmanFrame.setVisibility(View.VISIBLE);
+            keyboard.setVisibility(View.VISIBLE);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +175,6 @@ public class MainActivity extends AppCompatActivity {
         hangmanRightLeg = (ImageView) findViewById(R.id.hangmanRightLeg);
         wordSelected = (TextView) findViewById(R.id.wordSelected);
         btnStartGame = (Button) findViewById(R.id.btnStartGame);
-
-        theword = (TextView) findViewById(R.id.theword);
 
         keyboard = (TableLayout) findViewById(R.id.keyboard);
         qwertyuiop = (TableRow) findViewById(R.id.qwertyuiop);
@@ -133,6 +213,7 @@ public class MainActivity extends AppCompatActivity {
         btnStartGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                game = true;
                 hangmanFrame.setVisibility(View.VISIBLE);
 
                 // for restarting
@@ -154,7 +235,6 @@ public class MainActivity extends AppCompatActivity {
                 // randomly selects word from category
                 int randomKeyChooser = new Random().nextInt(randomArrSelected.length);
                 String randomKeySelected = randomArrSelected[randomKeyChooser];
-                theword.setText(randomKeySelected);
                 // turning word into array of chars
                 randomWordArray = randomKeySelected.toCharArray();
                 System.out.println(randomWordArray);
@@ -176,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('q');
                 btnQ.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnQNum] = 4;
             }
         });
         btnW.setOnClickListener(new View.OnClickListener() {
@@ -183,6 +264,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('w');
                 btnW.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnWNum] = 4;
             }
         });
         btnE.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('e');
                 btnE.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnENum] = 4;
             }
         });
         btnR.setOnClickListener(new View.OnClickListener() {
@@ -197,6 +280,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('r');
                 btnR.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnRNum] = 4;
             }
         });
         btnT.setOnClickListener(new View.OnClickListener() {
@@ -204,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('t');
                 btnT.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnTNum] = 4;
             }
         });
         btnY.setOnClickListener(new View.OnClickListener() {
@@ -211,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('y');
                 btnY.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnYNum] = 4;
             }
         });
         btnU.setOnClickListener(new View.OnClickListener() {
@@ -218,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('u');
                 btnU.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnUNum] = 4;
             }
         });
         btnI.setOnClickListener(new View.OnClickListener() {
@@ -225,6 +312,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('i');
                 btnI.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnINum] = 4;
             }
         });
         btnO.setOnClickListener(new View.OnClickListener() {
@@ -232,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('o');
                 btnO.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnONum] = 4;
             }
         });
         btnP.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('p');
                 btnP.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnPNum] = 4;
             }
         });
         btnA.setOnClickListener(new View.OnClickListener() {
@@ -246,6 +336,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('a');
                 btnA.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnANum] = 4;
             }
         });
         btnS.setOnClickListener(new View.OnClickListener() {
@@ -253,6 +344,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('s');
                 btnS.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnSNum] = 4;
             }
         });
         btnD.setOnClickListener(new View.OnClickListener() {
@@ -260,6 +352,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('d');
                 btnD.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnDNum] = 4;
             }
         });
         btnF.setOnClickListener(new View.OnClickListener() {
@@ -267,6 +360,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('f');
                 btnF.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnFNum] = 4;
             }
         });
         btnG.setOnClickListener(new View.OnClickListener() {
@@ -274,6 +368,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('g');
                 btnG.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnGNum] = 4;
             }
         });
         btnH.setOnClickListener(new View.OnClickListener() {
@@ -281,6 +376,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('h');
                 btnH.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnHNum] = 4;
             }
         });
         btnJ.setOnClickListener(new View.OnClickListener() {
@@ -288,6 +384,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('j');
                 btnJ.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnJNum] = 4;
             }
         });
         btnK.setOnClickListener(new View.OnClickListener() {
@@ -295,6 +392,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('k');
                 btnK.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnKNum] = 4;
             }
         });
         btnL.setOnClickListener(new View.OnClickListener() {
@@ -302,6 +400,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('l');
                 btnL.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnLNum] = 4;
             }
         });
         btnZ.setOnClickListener(new View.OnClickListener() {
@@ -309,6 +408,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('z');
                 btnZ.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnZNum] = 4;
             }
         });
         btnX.setOnClickListener(new View.OnClickListener() {
@@ -316,6 +416,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('x');
                 btnX.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnXNum] = 4;
             }
         });
         btnC.setOnClickListener(new View.OnClickListener() {
@@ -323,6 +424,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('c');
                 btnC.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnCNum] = 4;
             }
         });
         btnV.setOnClickListener(new View.OnClickListener() {
@@ -330,6 +432,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('v');
                 btnV.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnVNum] = 4;
             }
         });
         btnB.setOnClickListener(new View.OnClickListener() {
@@ -337,6 +440,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('b');
                 btnB.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnBNum] = 4;
             }
         });
         btnN.setOnClickListener(new View.OnClickListener() {
@@ -344,6 +448,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('n');
                 btnN.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnNNum] = 4;
             }
         });
         btnM.setOnClickListener(new View.OnClickListener() {
@@ -351,6 +456,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 letterChecker('m');
                 btnM.setVisibility(View.INVISIBLE);
+                keyboardButtonsUsed[btnMNum] = 4;
             }
         });
     }
