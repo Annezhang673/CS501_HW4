@@ -1,0 +1,8 @@
+The Rock Climbing app is used so that all climbers can choose with rock walls and outdoor rock climbing locations based on the current routes. Rock Climbing gyms usually change routes every month and sometimes sooner. So climbers can choose which wall they want to go to based on how interesting the routes are to them at that time. Also people traveling to different locations for outdoor climbing can use this to find interesting routes as well.
+
+However, this app is only just for finding routes. When a gym has new routes, workers will take a picture of the route and post it with its grading. From there, the users/climbers are able to post reviews on the route, rate it, say their beta, and take videos of how they climbed it. It will will almost be like a social media but for rock climbing as every user will have their own accounts.
+
+There will be two APIs used. theCrag and RESTAPI:
+
+1. theCrag API is used gather info of other climbers, routes in the area and photos
+2. RESTAPI will be used to store user info, pictures and videos as well as all other data
