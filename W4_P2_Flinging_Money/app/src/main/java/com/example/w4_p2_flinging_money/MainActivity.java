@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity{
             if ((euro.getText().toString().isEmpty())){
                 num = 0;
             } else {
-                num = Double.parseDouble(euro.getText().toString());
+                num = Math.round(Double.parseDouble(euro.getText().toString()));
             }
 
             String numText;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity{
             if ((euro.getText().toString().isEmpty())){
                 num = 0;
             } else {
-                num = Double.parseDouble(euro.getText().toString());
+                num = Math.round(Double.parseDouble(euro.getText().toString()));
             }
 
             String numText;
@@ -153,12 +153,17 @@ public class MainActivity extends AppCompatActivity{
 
     // this will set all of the correct currency values for the 4 other countries
     private void setCurrency(){
-        double euroValue = Double.parseDouble(euro.getText().toString());
+        double euroValue;
         double usaValue;
         double korValue;
         double japValue;
         double audValue;
-        //String currText;
+
+        if ((euro.getText().toString().isEmpty())){
+            euroValue = 0;
+        } else {
+            euroValue = Math.round(Double.parseDouble(euro.getText().toString()));
+        }
 
         // set US value
         usaValue = euroValue * 1.1619171;
