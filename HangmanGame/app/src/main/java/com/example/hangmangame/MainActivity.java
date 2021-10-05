@@ -3,8 +3,11 @@ package com.example.hangmangame;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     static final String[] music = {"guitar","violin","viola","cello","bass","piano","drums","clarinet","flute","trumpet","harp","jazz","indie","pop","classical","rock","edm"};
     /* array of arrays */
     static final String[][] allWords = {animals, food, music};
+
+    static final String[] categories = {"animals", "food", "music"};
 
     boolean game = false;
 
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnB;
     private Button btnN;
     private Button btnM;
+    private Button hint;
     int btnQNum = 0;
     int btnWNum = 1;
     int btnENum = 2;
@@ -109,6 +115,9 @@ public class MainActivity extends AppCompatActivity {
     int btnMNum = 25;
     private Button[] keyboardButtons;
     int[] keyboardButtonsUsed = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; // list of btn visibility (0 = visible, 4 = invisible)
+
+    int counthint = 0;
+    String category;
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -175,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
         hangmanRightLeg = (ImageView) findViewById(R.id.hangmanRightLeg);
         wordSelected = (TextView) findViewById(R.id.wordSelected);
         btnStartGame = (Button) findViewById(R.id.btnStartGame);
+        hint = (Button) findViewById(R.id.hint);
 
         keyboard = (TableLayout) findViewById(R.id.keyboard);
         qwertyuiop = (TableRow) findViewById(R.id.qwertyuiop);
@@ -216,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
                 game = true;
                 hangmanFrame.setVisibility(View.VISIBLE);
 
+
                 // for restarting
                 countWrong = 0;
                 wordSelectedUnderscores = "";
@@ -231,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
                 // randomly selects category
                 int randomArrChooser = new Random().nextInt(allWords.length);
+                category = categories[randomArrChooser];
                 String[] randomArrSelected = allWords[randomArrChooser];
                 // randomly selects word from category
                 int randomKeyChooser = new Random().nextInt(randomArrSelected.length);
@@ -248,8 +260,36 @@ public class MainActivity extends AppCompatActivity {
 
                 // start up the keyboard
                 keyboard.setVisibility(View.VISIBLE);
+
             }
         });
+
+
+        int orientation = getResources().getConfiguration().orientation;
+        OrientationEventListener orientationEventListener = new OrientationEventListener(this, SensorManager.SENSOR_DELAY_UI) {
+            @Override
+            public void onOrientationChanged(int orientation) {
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    if (game) {
+                        hint.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+        };
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            hint.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    counthint++;
+                    if (counthint < 2) {
+                        Toast.makeText(getApplicationContext(), category.toString(), Toast.LENGTH_LONG).show();
+                    } else if (counthint == 2) {
+                        countWrong++;
+                        hint.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+        }
 
         btnQ.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -459,6 +499,7 @@ public class MainActivity extends AppCompatActivity {
                 keyboardButtonsUsed[btnMNum] = 4;
             }
         });
+        counthint = 0;
     }
 
     /* takes button onclick to update game counters and UI */
