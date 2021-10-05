@@ -4,24 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Configuration;
-import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.view.OrientationEventListener;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -127,6 +119,8 @@ public class MainActivity extends AppCompatActivity {
         outState.putString("wordSelected", wordSelected.getText().toString());
         outState.putIntArray("keyboardButtonsUsed", keyboardButtonsUsed);
         outState.putBoolean("game", game);
+        outState.putInt("hintStatus", counthint);
+        outState.putString("category", category);
     }
 
     @Override
@@ -161,12 +155,26 @@ public class MainActivity extends AppCompatActivity {
             keyboardButtons[iter].setVisibility(savedKeyboardButtonsUsed[iter]);
         }
 
+        String savedCategory = savedInstanceState.getString("category");
+        category = savedCategory;
+
         boolean savedGame = savedInstanceState.getBoolean("game");
         game = savedGame;
 
         if (game) {
             hangmanFrame.setVisibility(View.VISIBLE);
             keyboard.setVisibility(View.VISIBLE);
+
+            int savedHintStatus = savedInstanceState.getInt("hintStatus");
+            counthint = savedHintStatus;
+            int orientation = getResources().getConfiguration().orientation;
+            if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                // In landscape
+                hint.setVisibility(View.VISIBLE);
+            } else {
+                // In portrait
+                hint.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -226,6 +234,14 @@ public class MainActivity extends AppCompatActivity {
                 game = true;
                 hangmanFrame.setVisibility(View.VISIBLE);
 
+                int orientation = getResources().getConfiguration().orientation;
+                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    // In landscape
+                    hint.setVisibility(View.VISIBLE);
+                } else {
+                    // In portrait
+                    hint.setVisibility(View.INVISIBLE);
+                }
 
                 // for restarting
                 countWrong = 0;
@@ -265,31 +281,51 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        int orientation = getResources().getConfiguration().orientation;
-        OrientationEventListener orientationEventListener = new OrientationEventListener(this, SensorManager.SENSOR_DELAY_UI) {
+//        int orientation = getResources().getConfiguration().orientation;
+//        OrientationEventListener orientationEventListener = new OrientationEventListener(this, SensorManager.SENSOR_DELAY_UI) {
+//            @Override
+//            public void onOrientationChanged(int orientation) {
+//                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//                    if (game) {
+//                        hint = (Button) findViewById(R.id.hint);
+//                        hint.setVisibility(View.VISIBLE);
+//                    }
+//                }
+//            }
+//        };
+//        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            hint.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    counthint++;
+//                    if (counthint < 2) {
+//                        Toast.makeText(getApplicationContext(), category.toString(), Toast.LENGTH_LONG).show();
+//                    } else if (counthint == 2) {
+//                        countWrong++;
+//                        hint.setVisibility(View.INVISIBLE);
+//                    }
+//                }
+//            });
+//        }
+        hint.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onOrientationChanged(int orientation) {
-                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    if (game) {
-                        hint.setVisibility(View.VISIBLE);
+            public void onClick(View view) {
+                counthint++;
+                if (counthint < 2) {
+                    Toast.makeText(getApplicationContext(), category.toString(), Toast.LENGTH_LONG).show();
+                } else if (counthint == 2) {
+                    hangmanBody[countWrong].setVisibility(View.VISIBLE);
+                    countWrong++;
+                    hint.setVisibility(View.INVISIBLE);
+
+                    // 6 wrongs = end game -> Toast & turn off keyboard
+                    if (countWrong == hangmanBody.length) {
+                        keyboard.setVisibility(View.INVISIBLE);
+                        Toast.makeText(getApplicationContext(), "OH NO! You killed Hangman! Game Over. Try again :)", Toast.LENGTH_LONG).show();
                     }
                 }
             }
-        };
-        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            hint.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    counthint++;
-                    if (counthint < 2) {
-                        Toast.makeText(getApplicationContext(), category.toString(), Toast.LENGTH_LONG).show();
-                    } else if (counthint == 2) {
-                        countWrong++;
-                        hint.setVisibility(View.INVISIBLE);
-                    }
-                }
-            });
-        }
+        });
 
         btnQ.setOnClickListener(new View.OnClickListener() {
             @Override
